@@ -1,0 +1,37 @@
+.ContentHome {
+    background-color: white;
+    border: 1px solid;
+    margin-top: 0.9em;
+    margin-left: 0.9em;
+}
+
+.BoxContent {
+    margin: 1em;
+    padding: 0.5em;
+    background-color: #428BCA;
+    border-radius: 0.5em;    
+}
+
+.InputNV {
+    margin-top: 1em;
+}
+
+.ButtonContent {
+    background-color: #428BCA;
+    color: white;
+}
+
+.BoxContentBottom {
+    margin: 1em;
+    padding: 0.5em; 
+}
+
+.InputDanger::before {
+    display: inline-block;
+    margin-right: 4px;
+    color: #ff4d4f;
+    font-size: 14px;
+    /* font-family: SimSun, sans-serif; */
+    line-height: 1;
+    content: '*';
+}
