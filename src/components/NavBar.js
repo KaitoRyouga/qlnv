@@ -3,11 +3,16 @@ import './NavBar.css'
 import Home from "./Home";
 import AddModal from './AddModal.js'
 
-import { Typography, Layout, Menu } from 'antd'
-import { CaretDownOutlined, MinusSquareOutlined } from '@ant-design/icons'
+import { Typography, Layout, Divider, Row, Col } from 'antd'
+import { CaretDownOutlined, MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons'
 import { connect } from 'react-redux'
 import DeleteNV from '../action/DeleteNV'
 import SearchNV from '../action/SearchNV'
+
+import { Collapse } from 'antd';
+
+const { Panel } = Collapse;
+
 const { Header, Content, Footer, Sider } = Layout;
 
 class NavBar extends Component {
@@ -19,6 +24,7 @@ class NavBar extends Component {
         action: null,
         headers: [],
         data: [],
+        expand: false
     }
 
     handleClickButton = (name) => {
@@ -100,6 +106,18 @@ class NavBar extends Component {
 
     render() {
 
+        const panel  = (
+            <div className="BoxSlider">
+                <Typography style={{color: 'white'}}>
+                    Quản lý đối tác
+                </Typography>
+                {
+                    this.state.expand ? <MinusSquareOutlined style={{backgroundColor: 'white'}}/> : <PlusSquareOutlined style={{backgroundColor: 'white'}} />
+                }
+                
+            </div>
+        )
+
         const { Qlnv, ModalAddqlnv } = this.state
 
         return (
@@ -110,42 +128,69 @@ class NavBar extends Component {
                 </Header>
                 <Layout>
                     <Sider className="SliderHome">
-                        <div className="BoxSlider">
-                            <Typography style={{color: 'white'}}>
-                                Quản lý đối tác
-                            </Typography>
-                            <MinusSquareOutlined style={{backgroundColor: 'white'}}/>
-                        </div>
                         <div>
-                            <Menu
-                                mode="inline"
-                            >
-                                <Menu.Item key="1">
-                                    <Typography style={{fontSize: '0.9em'}}>
-                                        Thông tin cửa hàng
-                                    </Typography>
-                                </Menu.Item>
-                                <Menu.Item key="2">
-                                    <Typography style={{fontSize: '0.9em'}}>
-                                        Quản lý chi nhánh
-                                    </Typography>
-                                </Menu.Item>
-                                <Menu.Item key="3" onClick={this.handleClickQlnv}>
-                                    <Typography style={{fontSize: '0.9em'}}>
-                                        Quản lý nhân viên
-                                    </Typography>
-                                </Menu.Item>
-                                <Menu.Item key="4">
-                                    <Typography style={{fontSize: '0.9em'}}>
-                                        Quản lý người dùng
-                                    </Typography>
-                                </Menu.Item>
-                                <Menu.Item key="5">
-                                    <Typography style={{fontSize: '0.9em'}}>
-                                        Quản lý thông số hệ thống
-                                    </Typography>
-                                </Menu.Item>
-                            </Menu>
+                        <Collapse onChange={() => this.setState({expand: !this.state.expand})} defaultActiveKey={['1']}>
+                            <Panel showArrow={false} header={panel} key="1">
+                            <Row>
+                                <Col span={2}>
+                                    <Divider dashed type="vertical" style={{height: '100%', backgroundColor: 'black'}}/>
+                                </Col>
+                                <Col span={22}>
+                                    <Row justify="center" align="middle">
+                                        <Col span={2}>
+                                            <Divider dashed type="horizontal" style={{backgroundColor: 'black'}}/>
+                                        </Col>
+                                        <Col span={22}>
+                                            <Typography className="TypographyPanel">
+                                                Thông tin cửa hàng
+                                            </Typography>
+                                        </Col>
+                                    </Row>
+                                    <Row justify="center" align="middle">
+                                        <Col span={2}>
+                                            <Divider dashed type="horizontal" style={{backgroundColor: 'black'}}/>
+                                        </Col>
+                                        <Col span={22}>
+                                            <Typography className="TypographyPanel">
+                                                Quản lý chi nhánh
+                                            </Typography>
+                                        </Col>
+                                    </Row>
+                                    <Row justify="center" align="middle">
+                                        <Col span={2}>
+                                            <Divider dashed type="horizontal" style={{backgroundColor: 'black'}}/>
+                                        </Col>
+                                        <Col span={22}>
+                                            <Typography onClick={this.handleClickQlnv} className="TypographyPanel">
+                                                Quản lý nhân viên
+                                            </Typography>
+                                        </Col>
+                                    </Row>
+                                    <Row justify="center" align="middle">
+                                        <Col span={2}>
+                                            <Divider dashed type="horizontal" style={{backgroundColor: 'black'}}/>
+                                        </Col>
+                                        <Col span={22}>
+                                            <Typography className="TypographyPanel">
+                                                Quản lý người dùng
+                                            </Typography>
+                                        </Col>
+                                    </Row>
+                                    <Row justify="center" align="middle">
+                                        <Col span={2}>
+                                            <Divider dashed type="horizontal" style={{backgroundColor: 'black'}}/>
+                                        </Col>
+                                        <Col span={22}>
+                                            <Typography className="TypographyPanel">
+                                                Quản lý thông số hệ thống
+                                            </Typography>
+                                        </Col>
+                                    </Row>
+                                </Col>
+                            </Row>
+
+                            </Panel>
+                        </Collapse>
                         </div>
                     </Sider>
                     <Content>

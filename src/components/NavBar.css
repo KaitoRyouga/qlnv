@@ -14,7 +14,7 @@
 }
 
 .BoxSlider {
-    margin: 1em;
+    /* margin: 1em; */
     padding: 0.5em;
     background-color: #428BCA;
     border-radius: 0.5em;
@@ -31,4 +31,19 @@ label {
     background-color: #428BCA;
     color: white;
     border-radius: 0.5em;
+}
+
+.error {
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 10em;
+}
+
+.TypographyPanel {
+    font-size: '1em';
+    margin-left: '2em';
+    cursor: pointer;
 }

@@ -62,7 +62,11 @@ class Home extends Component {
             active: true
         })
 
-        if (this.state.data != []) {
+        if(this.state.active === true){
+            this.exportBtn.current.link.click();
+        }
+
+        if (this.state.data !== []) {
             this.setState({
               active: true
             });
@@ -79,7 +83,7 @@ class Home extends Component {
                     active: false
                 })
                 }
-              }, 3000);
+              }, 1000);
             }
         }
     }
@@ -101,15 +105,30 @@ class Home extends Component {
         console.log('Failed:', errorInfo);
     };
 
-    // componentDidUpdate
-
     componentDidUpdate(prevProps, prevState) {
-        // console.log(this.props.activeSearch)
-        console.log(prevProps)
-        console.log(prevState.dataSource)
-        console.log(prevProps.nhanvienSearch.length)
-        console.log(this.state.dataSource.length)
-        console.log(this.props.nhanvienSearch)
+
+        // if(prevState.data === this.state.data && this.state.data.length !== 0 && this.state.active === false){
+        //     this.setState({
+        //         active: true
+        //     })
+        // }
+
+        // if(this.state.data.length === 0 && this.state.active === false){
+        //     this.setState({
+        //         active: true
+        //     })
+        // }
+
+        // if(this.state.data.length !== 0 && this.state.active === true){
+        //     if (this.isCsvFileReady()) {
+
+        //       this.exportBtn.current.link.click();
+        //       this.setState({
+        //           active: false,
+        //           data: []
+        //       })
+        //     }
+        // }
 
         if(prevState.dataSource === this.state.dataSource ){
 
@@ -117,7 +136,6 @@ class Home extends Component {
                 this.setState({
                     dataSource: this.props.nhanvienSearch
                 })
-                // console.log('kaito')
             }
         }
 
@@ -126,27 +144,13 @@ class Home extends Component {
             this.setState({
                 dataSource: this.props.nhanvienSearch
             })
-                console.log('kaito')
         }
     }
 
     componentDidMount() {
         this.setState({
             dataSource: this.props.nhanvien,
-            // dataSourceTemp: this.props.nhanvienSearch,
         })
-
-        // console.log(this.state.dataSourceTemp)
-    }
-
-    updateData = () => {
-        console.log(this.props.activeSearch)
-        // this.props.activeSearch
-        if(this.props.activeSearch === 1){
-            this.setState({
-                dataSource: this.props.nhanvienSearch
-            })
-        }
     }
 
     render() {
@@ -214,15 +218,17 @@ class Home extends Component {
                             dataSource={this.props.dataList}
                             renderItem={item => {
 
-                                if(item.content == "Xuất file"){
+                                if(item.content === "Xuất file"){
                                     return(
                                         <List.Item key={Math.random()} style={{padding: '0', paddingRight: '0.5em'}}>
                                             <Button onClick={() => {
                                                 this.handleExport()
                                             }} value={item.content} className="ButtonContent" shape="round">
                                                 {item.content}
+
                                                 {
                                                     this.state.active ? (
+                                                        
                                                         <CSVLink ref={this.exportBtn} data={this.state.data} headers={this.state.headers}></CSVLink>
                                                     ) : null
                                                 }
@@ -234,18 +240,10 @@ class Home extends Component {
                                     return(
                                         <List.Item key={Math.random()} style={{padding: '0', paddingRight: '0.5em'}}>
                                             <Button onClick={() => {
-                                                // if(item.content == "Tìm kiếm"){
-                                                //     this.SearchBtn.current.click()
-                                                // }
                                                 
-                                                if(item.content == "Tìm kiếm"){
+                                                if(item.content === "Tìm kiếm"){
                                                     this.SearchBtn.current.click()
-                                                    // this.setState({
-                                                    //     state: this.state
-                                                    // })
-                                                    // this.updateData()
                                                 }
-
                                                 
                                                 this.props.handleClickButton(item.content)
                                             }} value={item.content} className="ButtonContent" shape="round">

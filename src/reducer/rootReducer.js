@@ -202,8 +202,17 @@ const rootReducer = (state = initState, action) => {
 
         
         var SearchNV = [].concat(nhanvienAfterSearchTenNhanvien, nhanvienAfterSearchChinhanh, nhanvienAfterSearchChucvu, nhanvienAfterSearchTrangthai)
-        // console.log(SearchNV)
-        if(SearchNV.length == 0){
+        
+        const unique =  SearchNV.map(e => e['key'])
+
+        .map((e, i, final) => final.indexOf(e) === i && i)
+
+       .filter((e) => SearchNV[e]).map(e => SearchNV[e]);
+
+    //    console.log(unique)
+    //    console.log('unique')
+
+        if(SearchNV.length === 0){
             return{
                 ...state,
                 nhanvienSearch: state.nhanvien
@@ -211,7 +220,7 @@ const rootReducer = (state = initState, action) => {
         }else{
             return{
                 ...state,
-                nhanvienSearch: SearchNV
+                nhanvienSearch: unique
             }
         }
     }
@@ -229,6 +238,7 @@ const rootReducer = (state = initState, action) => {
     if(action.type === "EDIT_NV"){
         // action.info.key = state.nhanvien.length + 1
         // action.info.index = state.nhanvien.length + 1
+        console.log(action.id)
 
         let MaNVEdit = state.nhanvien.findIndex(nv => {
             return(
@@ -242,11 +252,12 @@ const rootReducer = (state = initState, action) => {
             )
         })
 
+
         action.id.key = MaNVEditkey.key
         action.id.index = MaNVEditkey.index
 
-        console.log(state.nhanvien.length)
-        console.log(MaNVEdit)
+        // console.log(state.nhanvien.length)
+        // console.log(MaNVEdit)
 
 
         let newNV1 = state.nhanvien.slice(0, MaNVEdit)
